@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>119046677049-q56pksngmv2hmirh87u4b7suc5ohpjbd.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.119046677049-q56pksngmv2hmirh87u4b7suc5ohpjbd</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>119046677049-g2javp59c6hie2tmc8tm06ajuepmacet.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDnDYsXBOENsn0fUbY2WsVSgAZWaI8sNis</string>
+	<key>GCM_SENDER_ID</key>
+	<string>119046677049</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.orange</string>
+	<key>PROJECT_ID</key>
+	<string>la-vie-c3cef</string>
+	<key>STORAGE_BUCKET</key>
+	<string>la-vie-c3cef.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:119046677049:ios:deed9a213e88ba8cca23e8</string>
+</dict>
+</plist>
