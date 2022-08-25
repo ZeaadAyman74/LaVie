@@ -47,7 +47,7 @@ class DioHelper {
    return await dio.post(
       url,
       data: data,
-     // queryParameters: query,
+      queryParameters: query,
     );
   }
 

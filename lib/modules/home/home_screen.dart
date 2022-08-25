@@ -71,7 +71,9 @@ class _HomeScreenState extends State<HomeScreen>
                         CacheHelper.putData(key: 'firstDate', value: firstDate.toString()).then((value){
                           Navigator.push(context,MaterialPageRoute(builder: (context)=> QuizScreen()));
                           CacheHelper.putData(key: 'validQuiz', value: false);
+                          AppCubit.get(context).changeQuizValidation();
                         });
+
                       }, icon: const Icon(Icons.question_mark,color: Colors.white,))),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:orange/modules/posts/cubit/posts_cubit.dart';
 import 'package:orange/shared/styles/colors.dart';
 
 class PostItem extends StatelessWidget {
@@ -96,7 +97,9 @@ var model;
                   icon: SvgPicture.asset(
                     'assets/icons/like.svg',
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    PostsCubit.get(context).likePost(model.forumId);
+                  },
                 ),
                 const SizedBox(
                   width: 2,

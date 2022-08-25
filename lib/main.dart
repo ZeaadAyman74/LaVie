@@ -20,9 +20,10 @@ void main() async{
   DioHelper.init();
   await SqlHelper.init('laVie');
   await CacheHelper.init();
-
+  await CacheHelper.clearCache();
   Widget startWidget;
   accessToken=CacheHelper.getData(key: 'token');
+  freeSeed=CacheHelper.getData(key: 'freeSeed');
   if(accessToken!=null){
     startWidget= LayoutScreen();
   }else{

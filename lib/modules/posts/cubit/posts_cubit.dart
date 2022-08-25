@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -85,5 +84,18 @@ class PostsCubit extends Cubit<PostsStates>{
       emit(GetAllPostsErrorState());
 
     });
+  }
+
+  void likePost(String id){
+DioHelper.postData(url: LIKE_POST, data: null,
+query: {
+  'forumId':id,
+},
+  token: accessToken,
+).then((value){
+emit(LikePostSuccessState());
+}).catchError((error){
+  emit(LikePostErrorState());
+});
   }
 }

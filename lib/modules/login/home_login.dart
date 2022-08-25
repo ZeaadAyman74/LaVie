@@ -38,8 +38,6 @@ class _HomeLoginState extends State<HomeLogin>
                 padding: const EdgeInsetsDirectional.only(
                     start: 163, end: 130,bottom: 60),
                 child: SizedBox(
-                  height: 50,
-                    width: 450,
                     child: SvgPicture.asset('assets/images/login_logo.svg',fit: BoxFit.fill,)),
               ),
               SizedBox(

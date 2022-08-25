@@ -22,3 +22,8 @@ class PickImageLoadingState extends PostsStates {}
 class PickImageSuccessState extends PostsStates {}
 
 class PickImageErrorState extends PostsStates {}
+
+class LikePostSuccessState extends PostsStates {}
+
+class LikePostErrorState extends PostsStates {}
+

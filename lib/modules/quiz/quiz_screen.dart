@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:orange/modules/quiz/questions.dart';
-
-import '../../shared/styles/colors.dart';
-
+import 'package:orange/shared/components/components.dart';
+import '../../shared/cubit/cubit.dart';
+import '../../shared/network/local/cache_helper.dart';
 class QuizScreen extends StatefulWidget {
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -32,9 +31,34 @@ class _QuizScreenState extends State<QuizScreen> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
+      appBar: AppBar(
+        title: Text('Course Exam',style: Theme.of(context).textTheme.subtitle1,),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Row(
+          children: [
+            MyButton(height: 20, width: 80, radius: 20, function: (){
+              Navigator.pop(context);
+            }, text:"Back"),
+            MyButton(height: 20, width: 80, radius: 20, function: (){
+              final firstDate = DateTime.now();
+              CacheHelper.putData(key: 'firstDate', value: firstDate.toString()).then((value) {
+                CacheHelper.putData(key: 'validQuiz', value: false);
+                AppCubit.get(context).changeQuizValidation();
+                Navigator.pop(context);
+              });
+            }, text:"Finish"),
+
+          ],
+        ),
+      ),
+    );
+
     //   backgroundColor: Colors.white,
     //   appBar: AppBar(
     //     backgroundColor: Colors.white,
@@ -112,7 +136,7 @@ class _QuizScreenState extends State<QuizScreen> {
     //       ),
     //     ),
     //   ),
-     );
+
   }
 
   // Column buildQuestions(Questions question) {
@@ -163,3 +187,81 @@ class _QuizScreenState extends State<QuizScreen> {
   // }
 }
 
+
+// SafeArea(
+// child: Scaffold(
+// appBar: AppBar(
+// title: const Text("Home"),
+// ),
+//
+// body: Container(
+// padding: EdgeInsets.all(30),
+// child: Column(
+// children: <Widget>[
+// Column(
+// children: <Widget>[
+// InkWell(
+// onTap: () {
+// setState(() {
+// _selection = 1;
+// });
+// },
+// child: Stack(
+// children: <Widget>[
+// Container(
+// height: 40,
+// width: 150,
+// color: _selection == 1 ? Colors.green : Colors.white,
+// ),
+// Row(
+// children: <Widget>[
+// Radio(
+// focusColor: Colors.white,
+// groupValue: _selection,
+// onChanged: selectTime(_selection),
+// value: 1,
+// ),
+// const Text(
+// "11:00 - 12:00",
+// style: TextStyle(fontWeight: FontWeight.bold),
+// ),
+// ],
+// ),
+// ],
+// ),
+// ),
+// InkWell(
+// onTap: () {
+// setState(() {
+// _selection = 2;
+// });
+// },
+// child: Stack(
+// children: <Widget>[
+// Container(
+// height: 40,
+// width: 150,
+// color: _selection == 2 ? Colors.green : Colors.white,
+// ),
+// Row(
+// children: <Widget>[
+// Radio(
+// focusColor: Colors.white,
+// groupValue: _selection,
+// onChanged: selectTime(_selection),
+// value: 2,
+// ),
+// const Text(
+// "12:00 - 13:00",
+// style: TextStyle(fontWeight: FontWeight.bold),
+// ),
+// ],
+// ),
+// ],
+// ),
+// )
+// ],
+// ),
+// ],
+// )),
+// ));

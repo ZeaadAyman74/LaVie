@@ -12,6 +12,7 @@ class MyTextField extends StatelessWidget {
   String? Function(String? value) validate;
   bool isPassword ;
   String? label;
+  String? hint;
   double height;
   int? maxLines=1;
 
@@ -23,6 +24,7 @@ class MyTextField extends StatelessWidget {
     this.label,
     this.height=90,
     this.maxLines=1,
+    this.hint,
   }) ;
 
   @override
@@ -44,8 +46,8 @@ class MyTextField extends StatelessWidget {
               keyboardType: type, // TextInputType.multiline
               validator: validate,
               obscureText: isPassword,
-              decoration: const InputDecoration(
-
+              decoration:  InputDecoration(
+                     hintText: hint?? '',
                 focusedBorder:OutlineInputBorder( borderSide: BorderSide(color: Color(0xff939393))),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff939393)),
@@ -68,7 +70,6 @@ class MyButton extends StatelessWidget {
   double radius;
   void Function() function;
   String text;
-
   MyButton({
     Key? key,
     required this.height,

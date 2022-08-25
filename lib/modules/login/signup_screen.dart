@@ -63,7 +63,7 @@ class SignUpScreen extends StatelessWidget {
                 MyTextField(
                     label: 'Email',
                     myController: emailController,
-                    type: TextInputType.visiblePassword,
+                    type: TextInputType.emailAddress,
                     validate: (String? value) {
                       if (value!.isEmpty) {
                         return 'Field cannot be empty';

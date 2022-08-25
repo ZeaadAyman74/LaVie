@@ -39,8 +39,7 @@ class AppCubit extends Cubit<AppStates> {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const ProfileScreen()));
     } else if (index == 0) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const BlogsScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const BlogsScreen()));
     }else if(index==1){
       Navigator.push(context, MaterialPageRoute(builder: (context)=> const ScanScreen()));
     }
@@ -50,8 +49,20 @@ class AppCubit extends Cubit<AppStates> {
     emit(ChangeNavBarState());
   }
 
-  ProductModel? productModel;
+  void getFreeSeed(String address){
+    emit(GetFreeSeedLoadingsState());
+    DioHelper.postData(url: FREE_SEED, data: {
+      'address':address,
+    },
+      token: accessToken,
+    ).then((value){
+      emit(GetFreeSeedSuccessState());
+    }).catchError((error){
+      emit(GetFreeSeedErrorState());
+    });
+  }
 
+  ProductModel? productModel;
   void getProducts() {
     emit(GetProductsLoadingState());
     DioHelper.getData(path: PRODUCTS, token: accessToken, query: null)
@@ -66,7 +77,6 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   ToolsModel? toolModel;
-
   void getTools() {
     emit(GetToolsLoadingState());
     DioHelper.getData(path: TOOLS, token: accessToken, query: null)
@@ -83,7 +93,6 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   SeedsModel? seedsModel;
-
   void getSeeds() {
     emit(GetSeedsLoadingState());
     DioHelper.getData(path: SEEDS, token: accessToken, query: null)
@@ -100,7 +109,6 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   PlantsModel? plantsModel;
-
   void getPlants() {
     emit(GetPlantsLoadingState());
     DioHelper.getData(path: PLANTS, token: accessToken, query: null)
@@ -206,7 +214,6 @@ emit(UpdateCartSuccessState());
 
   BlogsModel? blogModel;
   List allBlogs = [];
-
   void getBlogs() {
     emit(GetBlogsLoadingState());
     DioHelper.getData(path: BLOGS, token: accessToken, query: null)
@@ -226,4 +233,8 @@ emit(UpdateCartSuccessState());
       emit(GetBlogsErrorState());
     });
   }
+
+ void  changeQuizValidation(){
+    emit(ChangeQuizState());
+ }
 }

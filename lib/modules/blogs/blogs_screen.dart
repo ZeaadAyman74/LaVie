@@ -2,8 +2,10 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:orange/layout/layout_screen.dart';
 import 'package:orange/models/blogs.dart';
 import 'package:orange/modules/blogs/blog_item.dart';
+import 'package:orange/modules/home/home_screen.dart';
 
 import '../../shared/cubit/cubit.dart';
 import '../../shared/cubit/states.dart';
@@ -19,7 +21,10 @@ class BlogsScreen extends StatelessWidget {
         BlogsModel? model = AppCubit.get(context).blogModel;
         return Scaffold(
           appBar: AppBar(
-            title:  Text("Blogs",style: Theme.of(context).textTheme.subtitle1,),
+            title: Text(
+              "Blogs",
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
             leading: IconButton(
               icon: SvgPicture.asset(
                 'assets/icons/arrow_back.svg',
@@ -32,14 +37,18 @@ class BlogsScreen extends StatelessWidget {
           body: ConditionalBuilder(
             condition: model != null,
             builder: (context) {
-             // int listCount=model!.data!.plants!.length+model.data!.seeds!.length+model.data!.tools!.length;
+              // int listCount=model!.data!.plants!.length+model.data!.seeds!.length+model.data!.tools!.length;
               return ListView.separated(
-                itemBuilder: (context,index)=> BlogItem(AppCubit.get(context).allBlogs[index]),
-                separatorBuilder: (context,index)=> const SizedBox(height: 20,),
-                itemCount:AppCubit.get(context).allBlogs.length ,
+                itemBuilder: (context, index) =>
+                    BlogItem(AppCubit.get(context).allBlogs[index]),
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 20,
+                ),
+                itemCount: AppCubit.get(context).allBlogs.length,
               );
             },
-            fallback: (context) => const Center(child: CircularProgressIndicator()),
+            fallback: (context) =>
+                const Center(child: CircularProgressIndicator()),
           ),
         );
       },

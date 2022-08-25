@@ -4,6 +4,12 @@ class InitialState extends AppStates {}
 
 class ChangeNavBarState extends AppStates {}
 
+class GetFreeSeedSuccessState extends AppStates {}
+
+class GetFreeSeedLoadingsState extends AppStates {}
+
+class GetFreeSeedErrorState extends AppStates {}
+
 class GetProductsLoadingState extends AppStates {}
 
 class GetProductsSuccessState extends AppStates {}
@@ -53,5 +59,7 @@ class GetBlogsLoadingState extends AppStates {}
 class GetBlogsSuccessState extends AppStates {}
 
 class GetBlogsErrorState extends AppStates {}
+
+class ChangeQuizState extends AppStates {}
 
 

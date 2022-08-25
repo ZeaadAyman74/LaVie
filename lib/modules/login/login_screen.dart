@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:orange/layout/layout_screen.dart';
+import 'package:orange/modules/free_seed/free_seed_screen.dart';
 import 'package:orange/modules/login/components.dart';
 import 'package:orange/shared/components/components.dart';
 import 'package:orange/shared/components/constants.dart';
@@ -24,8 +25,11 @@ class LoginScreen extends StatelessWidget {
           showToast(message: LoginCubit.get(context).loginModel!.message!, state:ToastStates.SUCCESS);
           CacheHelper.putData(key: 'token', value:LoginCubit.get(context).loginModel!.data!.accessToken).then((value){
             accessToken=LoginCubit.get(context).loginModel!.data!.accessToken;
-            print('$accessToken *****************************');
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LayoutScreen()));
+            if(freeSeed!=true){
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>FreeSeedScreen()));
+            }else{
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LayoutScreen()));
+            }
           });
         }else if(state is LoginErrorState){
           showToast(message:state.message, state: ToastStates.ERROR);

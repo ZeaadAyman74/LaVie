@@ -9,5 +9,7 @@ const USER_DATA = '/api/v1/user/me';
 const UPDATE_USER='/api/v1/user/me';
 const CREATE_POST='/api/v1/forums';
 const ALL_POSTS='/api/v1/forums/me';
+const LIKE_POST='/api/v1/forums/:forumId/like';
+const FREE_SEED='/api/v1/user/me/claimFreeSeeds';
 
 
