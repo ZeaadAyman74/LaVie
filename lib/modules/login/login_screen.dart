@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:orange/layout/layout_screen.dart';
 import 'package:orange/modules/free_seed/free_seed_screen.dart';
-import 'package:orange/modules/login/components.dart';
 import 'package:orange/shared/components/components.dart';
 import 'package:orange/shared/components/constants.dart';
 import 'package:orange/shared/network/local/cache_helper.dart';
@@ -43,6 +42,7 @@ class LoginScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 MyTextField(
+                  height: 50,
                     label: 'Email',
                     myController: emailController,
                     type: TextInputType.emailAddress,
@@ -57,6 +57,8 @@ class LoginScreen extends StatelessWidget {
                   height: 20,
                 ),
                 MyTextField(
+                  height: 50,
+                    isPassword: true,
                     label: 'Password',
                     myController: passController,
                     type: TextInputType.visiblePassword,
@@ -70,6 +72,8 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(
                   height: 25,
                 ),
+               state is LoginLoadingState ?
+                  const CircularProgressIndicator() :
                 MyButton(
                   height: 47,
                   width: 337,

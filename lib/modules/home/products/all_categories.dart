@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:orange/models/product.dart';
 import 'package:orange/modules/home/products/product_item.dart';
-import 'package:orange/shared/cubit/cubit.dart';
-import 'package:orange/shared/cubit/states.dart';
+import 'package:orange/layout/cubit/cubit.dart';
+import 'package:orange/layout/cubit/states.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key}) : super(key: key);
@@ -15,23 +15,24 @@ class ProductsScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         ProductModel? model=AppCubit.get(context).productModel;
+        List<ProductItem>? dataList=model?.data?.map((element)=>ProductItem(element)).toList();
         return  ConditionalBuilder(
           condition:model!=null ,
-          builder:(context)=> SingleChildScrollView(
-            child: Column(
-              children: [
-                GridView.count(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 5,
-                    childAspectRatio: 1 / 1.4,
-                    children:model!.data!.map((element)=>ProductItem(element)).toList()
+          builder:(context)=> CustomScrollView(
+            slivers: [
+              SliverGrid(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                  childAspectRatio: 1/1.4,
                 ),
-              ],
-            ),
-
+                delegate: SliverChildBuilderDelegate(
+                      (context, index)=>dataList![index],
+                  childCount: dataList!.length,
+                ),
+              )
+            ],
           ),
           fallback: (context)=>const Center(child: CircularProgressIndicator()),
         );

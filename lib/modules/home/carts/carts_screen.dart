@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:orange/modules/home/carts/cart_item.dart';
-import 'package:orange/modules/login/components.dart';
-import 'package:orange/shared/cubit/cubit.dart';
-import 'package:orange/shared/cubit/states.dart';
+import 'package:orange/layout/cubit/cubit.dart';
+import 'package:orange/layout/cubit/states.dart';
 import 'package:orange/shared/styles/colors.dart';
-
 import '../../../shared/components/components.dart';
 
 class CartsScreen extends StatelessWidget {

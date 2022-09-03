@@ -15,10 +15,10 @@ class NotificationItem extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               CircleAvatar(
+               const CircleAvatar(
                 radius: 22,
-                backgroundImage: NetworkImage(
-                  model!.image!,
+                backgroundImage: AssetImage(
+                  'assets/images/profile.svg',
                 ),
               ),
               const SizedBox(

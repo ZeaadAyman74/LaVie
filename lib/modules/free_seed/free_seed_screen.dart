@@ -3,14 +3,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:orange/layout/layout_screen.dart';
 import 'package:orange/shared/components/components.dart';
 import 'package:orange/shared/components/constants.dart';
-import 'package:orange/shared/cubit/cubit.dart';
+import 'package:orange/layout/cubit/cubit.dart';
 import 'package:orange/shared/network/local/cache_helper.dart';
-
-import '../../shared/styles/colors.dart';
 
 class FreeSeedScreen extends StatelessWidget {
   FreeSeedScreen({Key? key}) : super(key: key);
-  TextEditingController _controller = TextEditingController();
+  TextEditingController controller = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -28,9 +26,9 @@ class FreeSeedScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: Container(
                     child: SvgPicture.asset(
-                      'assets/images/login_logo.svg',
-                      fit: BoxFit.fill,
-                    )),
+                  'assets/images/login_logo.svg',
+                  fit: BoxFit.fill,
+                )),
               ),
               Text(
                 "Get Seeds For Free",
@@ -50,7 +48,7 @@ class FreeSeedScreen extends StatelessWidget {
                 height: 20,
               ),
               MyTextField(
-                  myController: _controller,
+                  myController: controller,
                   height: 90,
                   type: TextInputType.text,
                   hint: "Address",
@@ -61,7 +59,7 @@ class FreeSeedScreen extends StatelessWidget {
                       return null;
                     }
                   }),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               MyButton(
@@ -69,10 +67,10 @@ class FreeSeedScreen extends StatelessWidget {
                   width: double.infinity,
                   radius: 10,
                   function: () {
-                    AppCubit.get(context).getFreeSeed(_controller.text);
+                    AppCubit.get(context).getFreeSeed(controller.text);
                     CacheHelper.putData(key: 'freeSeed', value: true);
                     freeSeed = false;
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => LayoutScreen()));
@@ -90,7 +88,7 @@ class FreeSeedScreen extends StatelessWidget {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => LayoutScreen()));
@@ -103,7 +101,7 @@ class FreeSeedScreen extends StatelessWidget {
                         .copyWith(fontSize: 16, color: const Color(0xff979797)),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

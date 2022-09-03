@@ -12,7 +12,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
   static ProfileCubit get(BuildContext context) => BlocProvider.of(context);
 
   UserModel? userModel;
-  void getUserData()  {
+   getUserData()async{
     emit(GetUserDataLoadingState());
      DioHelper.getData(path: USER_DATA, query: null, token: accessToken)
         .then((value) {

@@ -8,27 +8,39 @@ class BlogItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 160,
-      width: 180,
+      height: 200,
+     // width: 180,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Card(
-          elevation: 3,
+          elevation: 5,
+          shadowColor: Colors.black,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15))),
           child: Row(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(15)),
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          model.imageUrl != ""
-                              ? 'https://lavie.orangedigitalcenteregypt.com${model.imageUrl}'
-                              : 'https://th.bing.com/th/id/OIP.rPDuoJgIPkGu-9TSDDLfjgHaHa?pid=ImgDet&w=600&h=600&rs=1',
-                      ),
-                      fit: BoxFit.cover),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Card(
+                  elevation: 1,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      image: DecorationImage(
+                          image: NetworkImage(
+                              model.imageUrl != ""
+                                  ? 'https://lavie.orangedigitalcenteregypt.com${model.imageUrl}'
+                                  : 'https://th.bing.com/th/id/OIP.rPDuoJgIPkGu-9TSDDLfjgHaHa?pid=ImgDet&w=600&h=600&rs=1',
+                          ),
+                          fit: BoxFit.cover),
+                    ),
+                    height: 160,
+                    width: 140,
+                  ),
                 ),
-                height: 150,
-                width: 130,
               ),
               if (model.imageUrl != "")
                 const SizedBox(

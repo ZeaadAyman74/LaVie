@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:orange/shared/cubit/cubit.dart';
+import 'package:orange/layout/cubit/cubit.dart';
 import '../../../shared/components/components.dart';
-import '../../login/components.dart';
 
 class ProductItem extends StatelessWidget {
   var model;

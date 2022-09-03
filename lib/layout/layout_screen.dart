@@ -1,15 +1,44 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:orange/shared/cubit/cubit.dart';
-import 'package:orange/shared/cubit/states.dart';
+import 'package:orange/layout/cubit/cubit.dart';
+import 'package:orange/layout/cubit/states.dart';
+import 'package:orange/modules/profile/cubit/profile_cubit.dart';
 import 'package:orange/shared/styles/colors.dart';
 
-class LayoutScreen extends StatelessWidget {
+class LayoutScreen extends StatefulWidget {
    LayoutScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LayoutScreen> createState() => _LayoutScreenState();
+}
 
+class _LayoutScreenState extends State<LayoutScreen> {
+  fetchData()async{
+    if(AppCubit.get(context).productModel == null){
+      await AppCubit.get(context).getProducts();
+    }
+    if(AppCubit.get(context).plantsModel == null){
+      await AppCubit.get(context).getPlants();
+    }
+    if(AppCubit.get(context).seedsModel == null){
+      await AppCubit.get(context).getSeeds();
+    }
+    if(AppCubit.get(context).toolModel == null){
+      await AppCubit.get(context).getTools();
+    }
+    if(AppCubit.get(context).blogModel == null){
+      await AppCubit.get(context).getBlogs();
+    }
+    if(ProfileCubit.get(context).userModel==null){
+      await ProfileCubit.get(context).getUserData();
+    }
+  }
+  @override
+  void initState() {
+    fetchData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(

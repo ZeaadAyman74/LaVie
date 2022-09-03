@@ -2,8 +2,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:orange/modules/home/seeds/seed_item.dart';
-import 'package:orange/shared/cubit/cubit.dart';
-import 'package:orange/shared/cubit/states.dart';
+import 'package:orange/layout/cubit/cubit.dart';
+import 'package:orange/layout/cubit/states.dart';
 
 import '../../../models/seeds.dart';
 
@@ -16,23 +16,24 @@ class SeedsScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         SeedsModel? model=AppCubit.get(context).seedsModel;
+        List<SeedItem>?dataList=model?.data?.map((element)=>SeedItem(element)).toList();
         return  ConditionalBuilder(
           condition:model!=null ,
-          builder:(context)=> SingleChildScrollView(
-            child: Column(
-              children: [
-                GridView.count(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 5,
-                    childAspectRatio: 1 / 1.35,
-                    children:model!.data!.map((element)=>SeedItem(element)).toList()
+          builder:(context)=> CustomScrollView(
+            slivers: [
+              SliverGrid(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                  childAspectRatio: 1/1.4,
                 ),
-              ],
-            ),
-
+                delegate: SliverChildBuilderDelegate(
+                      (context, index)=>dataList![index],
+                  childCount: dataList!.length,
+                ),
+              )
+            ],
           ),
           fallback: (context)=>const Center(child: CircularProgressIndicator()),
         );

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:orange/shared/styles/colors.dart';
 
@@ -15,6 +13,7 @@ class MyTextField extends StatelessWidget {
   String? hint;
   double height;
   int? maxLines=1;
+  bool expanded=false;
 
   MyTextField({
     required this.myController,
@@ -25,36 +24,38 @@ class MyTextField extends StatelessWidget {
     this.height=90,
     this.maxLines=1,
     this.hint,
+    this.expanded=false,
   }) ;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 337,
-      height: height,
+      height: height+22,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label??'',style: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 14,color: const Color(0xff6F6F6F))),
           const SizedBox(height: 5,),
           SizedBox(
-            height: 60,
+            height: height,
             child: TextFormField(
-              maxLines: 1,
+              expands: expanded,
+              maxLines: maxLines,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18,fontWeight: FontWeight.w300),
               controller: myController,
               keyboardType: type, // TextInputType.multiline
               validator: validate,
               obscureText: isPassword,
               decoration:  InputDecoration(
-                     hintText: hint?? '',
-                focusedBorder:OutlineInputBorder( borderSide: BorderSide(color: Color(0xff939393))),
-                border: OutlineInputBorder(
+                hintText: hint?? '',
+                focusedBorder:const OutlineInputBorder( borderSide: BorderSide(color: Color(0xff939393))),
+                border: const OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff939393)),
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                 ),
-                enabledBorder: OutlineInputBorder( borderSide: BorderSide(color: Color(0xff939393))),
-
+                enabledBorder: const OutlineInputBorder( borderSide: BorderSide(color: Color(0xff939393))),
+                contentPadding: EdgeInsets.all(5)
               ),
             ),
           ),

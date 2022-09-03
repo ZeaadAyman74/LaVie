@@ -11,11 +11,11 @@ class CreatePostErrorState extends PostsStates {
   CreatePostErrorState(this.error);
 }
 
-class GetAllPostsLoadingState extends PostsStates {}
+class GetMyPostsLoadingState extends PostsStates {}
 
-class GetAllPostsSuccessState extends PostsStates {}
+class GetMyPostsSuccessState extends PostsStates {}
 
-class GetAllPostsErrorState extends PostsStates {}
+class GetMyPostsErrorState extends PostsStates {}
 
 class PickImageLoadingState extends PostsStates {}
 

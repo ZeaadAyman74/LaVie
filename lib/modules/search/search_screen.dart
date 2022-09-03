@@ -1,8 +1,8 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:orange/layout/cubit/cubit.dart';
 import 'package:orange/modules/blogs/blog_item.dart';
-import 'package:orange/shared/cubit/cubit.dart';
 import 'package:orange/shared/styles/colors.dart';
 
 class SearchScreen extends StatefulWidget {

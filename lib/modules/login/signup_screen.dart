@@ -33,6 +33,7 @@ class SignUpScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 MyTextField(
+                  height: 50,
                     label: 'First Name',
                     myController: firstNameController,
                     type: TextInputType.name,
@@ -47,6 +48,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 15,
                 ),
                 MyTextField(
+                  height: 50,
                     label: 'Last Name',
                     myController: lastNameController,
                     type: TextInputType.name,
@@ -61,6 +63,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 15,
                 ),
                 MyTextField(
+                    height: 50,
                     label: 'Email',
                     myController: emailController,
                     type: TextInputType.emailAddress,
@@ -75,7 +78,9 @@ class SignUpScreen extends StatelessWidget {
                   height: 15,
                 ),
                 MyTextField(
+                    height: 50,
                     label: 'Password',
+                    isPassword: true,
                     myController: passController,
                     type: TextInputType.visiblePassword,
                     validate: (String? value) {

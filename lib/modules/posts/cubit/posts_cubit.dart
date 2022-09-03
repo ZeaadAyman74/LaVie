@@ -8,7 +8,6 @@ import 'package:orange/shared/components/components.dart';
 import 'package:orange/shared/components/constants.dart';
 import 'package:orange/shared/network/remote/dio_helper.dart';
 import 'package:orange/shared/network/remote/end_points.dart';
-
 import '../../../models/posts.dart';
 
 class PostsCubit extends Cubit<PostsStates>{
@@ -16,11 +15,6 @@ class PostsCubit extends Cubit<PostsStates>{
 
   static PostsCubit get( context)=>BlocProvider.of(context);
 
-  Future<String?>convertToBase64(File image)async{
-      List<int> bytes =await image.readAsBytes();
-      String image64 = base64.encoder.convert(bytes);
-      return image64;
-    }
 
   ImagePicker picker = ImagePicker();
   File? postImage;
@@ -35,15 +29,21 @@ class PostsCubit extends Cubit<PostsStates>{
     }
   }
 
+  Future<String?>convertToBase64(File image)async{
+    List<int> bytes =await File(image.path).readAsBytes();
+    String image64 =base64Encode(bytes);
+    return image64;
+  }
+
   void createNewPost({
-  required String title,
+     required String title,
     required String description,
 })async{
     if(postImage!=null){
       emit(CreatePostLoadingState());
-      String? baseImage="data:image/jpeg;base64,${await convertToBase64(postImage!)}" ;
+      String? baseImage=await convertToBase64(postImage!);
       print('$baseImage *********************************');
-      DioHelper.postData(
+    await  DioHelper.postData(
           url: CREATE_POST,
           data: {
             'title':title,
@@ -54,8 +54,8 @@ class PostsCubit extends Cubit<PostsStates>{
         token: accessToken,
       ).then((value){
         postImage=null;
-        emit(CreatePostSuccessState());
         getPosts();
+        emit(CreatePostSuccessState());
       }).catchError((error){
         String? errorMessage;
         if(error is DioError){
@@ -70,18 +70,19 @@ class PostsCubit extends Cubit<PostsStates>{
   }
 
   List posts=[];
-  void getPosts(){
-    emit(GetAllPostsLoadingState());
-    DioHelper.getData(path: ALL_POSTS, query: null,token: accessToken).then((value) {
+   getPosts(){
+    emit(GetMyPostsLoadingState());
+    posts=[];
+    DioHelper.getData(path: MY_POSTS, query: null,token: accessToken).then((value) {
       PostModel? postModel=PostModel.fromJson(value.data);
      // print(postModel.data![0].imageUrl);
       postModel.data!.forEach((element) {
         posts.add(element);
       });
-      emit(GetAllPostsSuccessState());
+      emit(GetMyPostsSuccessState());
     }).catchError((error){
       print(error.toString());
-      emit(GetAllPostsErrorState());
+      emit(GetMyPostsErrorState());
 
     });
   }

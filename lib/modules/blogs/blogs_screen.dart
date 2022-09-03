@@ -1,14 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:orange/layout/layout_screen.dart';
+import 'package:orange/layout/cubit/cubit.dart';
+import 'package:orange/layout/cubit/states.dart';
 import 'package:orange/models/blogs.dart';
 import 'package:orange/modules/blogs/blog_item.dart';
-import 'package:orange/modules/home/home_screen.dart';
-
-import '../../shared/cubit/cubit.dart';
-import '../../shared/cubit/states.dart';
 
 class BlogsScreen extends StatelessWidget {
   const BlogsScreen({Key? key}) : super(key: key);
@@ -25,25 +21,15 @@ class BlogsScreen extends StatelessWidget {
               "Blogs",
               style: Theme.of(context).textTheme.subtitle1,
             ),
-            leading: IconButton(
-              icon: SvgPicture.asset(
-                'assets/icons/arrow_back.svg',
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
+            centerTitle: true,
           ),
           body: ConditionalBuilder(
             condition: model != null,
             builder: (context) {
               // int listCount=model!.data!.plants!.length+model.data!.seeds!.length+model.data!.tools!.length;
               return ListView.separated(
-                itemBuilder: (context, index) =>
-                    BlogItem(AppCubit.get(context).allBlogs[index]),
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 20,
-                ),
+                itemBuilder: (context, index) => BlogItem(AppCubit.get(context).allBlogs[index]),
+                separatorBuilder: (context, index) => const SizedBox(height: 18,),
                 itemCount: AppCubit.get(context).allBlogs.length,
               );
             },

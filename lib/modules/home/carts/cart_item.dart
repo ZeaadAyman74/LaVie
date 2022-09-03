@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:orange/models/carts_model.dart';
-import 'package:orange/shared/cubit/cubit.dart';
+import 'package:orange/layout/cubit/cubit.dart';
 import 'package:orange/shared/styles/colors.dart';
 
 // ignore: must_be_immutable

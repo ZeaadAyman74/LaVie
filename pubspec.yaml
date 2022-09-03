@@ -83,7 +83,6 @@ flutter:
      - assets/images/right_flower.svg
      - assets/images/left_flower.svg
      - assets/images/carts_empty.svg
-     - assets/images/1.png
      - assets/images/splash.svg
      - assets/icons/home.png
      - assets/icons/leave.png
@@ -98,11 +97,12 @@ flutter:
      - assets/icons/points.svg
      - assets/icons/forward.svg
      - assets/icons/like.svg
-     - assets/images/post.png
      - assets/icons/arrow_back.svg
      - assets/icons/arrow_right.svg
      - assets/icons/history.svg
-     - assets/images/free_seed.svg
+     - assets/images/profile.svg
+     - assets/images/cover.svg
+     - assets/images/cover1.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

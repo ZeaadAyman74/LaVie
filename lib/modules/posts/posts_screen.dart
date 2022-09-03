@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:orange/modules/posts/all_posts_screen.dart';
 import 'package:orange/modules/posts/create_post.dart';
+import 'package:orange/modules/posts/cubit/posts_cubit.dart';
 import 'package:orange/modules/posts/my_posts_screen.dart';
 import '../../shared/components/components.dart';
 import '../../shared/styles/colors.dart';
@@ -15,12 +16,17 @@ class PostsScreen extends StatefulWidget {
 
 class _PostsScreenState extends State<PostsScreen>with SingleTickerProviderStateMixin {
   var searchController = TextEditingController();
-
   late TabController _tabController;
+
+  fetchPosts()async{
+   await PostsCubit.get(context).getPosts();
+  }
+
   @override
   void initState() {
-    super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    fetchPosts();
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {
@@ -45,21 +51,30 @@ class _PostsScreenState extends State<PostsScreen>with SingleTickerProviderState
           SearchItem(onChange: (){},searchController: searchController),
           SizedBox(
             width: double.maxFinite,
-            child: TabBar(
-                onTap: (index) {},
-                controller: _tabController,
-                indicator: const BoxDecoration(
-                  shape: BoxShape.rectangle,
-                ),
-                indicatorColor: defaultColor,
-                tabs: const [
-                  Tab(
-                    text: "All Forums",
-                  ),
-                  Tab(
-                    text: 'My forums',
-                  ),
-                ]),
+            child: Theme(
+              data: ThemeData(
+                tabBarTheme:  TabBarTheme(
+                  indicatorSize: TabBarIndicatorSize.label,
+                  labelColor: myColor,
+                  unselectedLabelColor: Colors.grey,
+                  unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal,fontSize: 16),
+                  labelStyle: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
+                )
+              ),
+              child: TabBar(
+                  onTap: (index) {},
+                  controller: _tabController,
+                  indicatorColor: defaultColor,
+                  tabs: const [
+                    Tab(
+                      text: "My Forums",
+                    ),
+                    Tab(
+                      text: 'All Forums',
+                    ),
+                  ],
+              ),
+            ),
           ),
           const SizedBox(
             height: 15,
@@ -68,15 +83,14 @@ class _PostsScreenState extends State<PostsScreen>with SingleTickerProviderState
             child: TabBarView(
               controller: _tabController,
               children: const [
-                AllPostsScreen(),
                 MyPostsScreen(),
+                AllPostsScreen(),
               ],
             ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-
         onPressed: (){
           Navigator.push(context,MaterialPageRoute(builder:(context)=>CreatePostScreen()));
         },

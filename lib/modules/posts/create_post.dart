@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:orange/modules/posts/cubit/posts_cubit.dart';
 import 'package:orange/modules/posts/cubit/posts_states.dart';
+import 'package:orange/modules/posts/posts_screen.dart';
 import 'package:orange/shared/styles/colors.dart';
 import '../../shared/components/components.dart';
 
@@ -21,6 +22,7 @@ class CreatePostScreen extends StatelessWidget {
         listener: (context, state) {
           if(state is CreatePostSuccessState){
             showToast(message: 'Post Shared Successfully', state: ToastStates.SUCCESS);
+            Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>PostsScreen()));
           }else if(state is CreatePostErrorState){
             showToast(message: state.error, state: ToastStates.ERROR);
           }
@@ -59,8 +61,7 @@ class CreatePostScreen extends StatelessWidget {
                         height: 150,
                         width: 150,
                         decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
                             border: Border.all(
                               color: defaultColor,
                             )),
@@ -79,34 +80,39 @@ class CreatePostScreen extends StatelessWidget {
                           ],
                         ),
                       ) :
-                          Image.file(cubit.postImage!),
+                      SizedBox(
+                        height: 200,
+                          child: Image.file(cubit.postImage!)),
 
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    Wrap(children: [
-                      MyTextField(
-                        myController: descriptionController,
-                        label: "Title",
-                        maxLines: null,
-                        type: TextInputType.multiline,
-                        validate: (String? value) {
-                          if (value!.isEmpty) {
-                            return 'Write a title';
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
-                    ]),
+                    MyTextField(
+                      height: 60,
+                      myController: titleController,
+                      label: "Title",
+                      maxLines: null,    //*****************************************************************
+                      type: TextInputType.multiline,  // **********************************************************
+                      expanded: true, // **************************************************************
+                      validate: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'Write a title';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
                     const SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
                     MyTextField(
-                      myController: titleController,
+                      height: 120,
+                      myController: descriptionController,
                       label: "Description",
-                      type: TextInputType.text,
+                        maxLines: null,    //*****************************************************************
+                        type: TextInputType.multiline,  // **********************************************************
+                        expanded: true, // ****************************************************************
                       validate: (String? value) {
                         if (value!.isEmpty) {
                           return 'Write a description';

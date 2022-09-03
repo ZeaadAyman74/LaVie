@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../../shared/components/components.dart';
-import '../../../shared/cubit/cubit.dart';
-import '../../login/components.dart';
+import 'package:orange/layout/cubit/cubit.dart';
+
 // ignore: must_be_immutable
 class ToolItem extends StatelessWidget {
   var model;
@@ -51,8 +50,8 @@ class ToolItem extends StatelessWidget {
                       ),
                     ),
                      Padding(
-                      padding: EdgeInsets.only(right: 10,left: 10),
-                      child: Text('${model.quantity}',style: TextStyle(fontWeight: FontWeight.bold),),
+                      padding: const EdgeInsets.only(right: 10,left: 10),
+                      child: Text('${model.quantity}',style:const TextStyle(fontWeight: FontWeight.bold),),
                     ),
                     InkWell(
                       onTap: (){

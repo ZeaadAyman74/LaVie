@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../shared/components/components.dart';
-import '../../../shared/cubit/cubit.dart';
+import 'package:orange/layout/cubit/cubit.dart';
+
 
 class PlantItem extends StatelessWidget {
   var model;
@@ -48,8 +49,8 @@ class PlantItem extends StatelessWidget {
                       ),
                     ),
                      Padding(
-                      padding: EdgeInsets.only(right: 10,left: 10),
-                      child: Text('${model.quantity}',style: TextStyle(fontWeight: FontWeight.bold),),
+                      padding:const EdgeInsets.only(right: 10,left: 10),
+                      child: Text('${model.quantity}',style:const TextStyle(fontWeight: FontWeight.bold),),
                     ),
                     InkWell(
                       onTap: (){

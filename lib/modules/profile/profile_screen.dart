@@ -2,10 +2,13 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:orange/layout/layout_screen.dart';
 import 'package:orange/modules/profile/cubit/profile_cubit.dart';
 import 'package:orange/modules/profile/cubit/states.dart';
 import 'package:orange/modules/update_user/update_email.dart';
 import 'package:orange/modules/update_user/update_name.dart';
+import '../../shared/network/local/cache_helper.dart';
+import '../login/home_login.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -25,10 +28,9 @@ class ProfileScreen extends StatelessWidget {
                   Container(
                     color: Colors.black,
                     height: double.infinity,
-                    child: Image.network(
-                        fit: BoxFit.cover,
-                        opacity: const AlwaysStoppedAnimation(.6),
-                        'https://scontent.fcai20-1.fna.fbcdn.net/v/t39.30808-6/274880215_2117840785046945_8522829344125607352_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_ohc=WNzAvG5jIT0AX-ssqYA&_nc_ht=scontent.fcai20-1.fna&oh=00_AT9LA9N9ulz8ulmpJBlefG0XgaEbf9SG7g5fX6KnGwgfOw&oe=6305E3EE'),
+                    child: Image.asset('assets/images/cover1.svg', opacity: const AlwaysStoppedAnimation(.5),
+                      fit: BoxFit.cover,
+                    )
                   ),
                   Positioned(
                       right: 10,
@@ -47,22 +49,21 @@ class ProfileScreen extends StatelessWidget {
                       top: 30,
                       child: IconButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
                           },
                           icon: const Icon(
                             Icons.arrow_back,
                             color: Colors.white,
                             size: 30,
                           ))),
-                  const Positioned(
+                   const Positioned(
                     left: 120,
                     right: 120,
                     top: 80,
                     bottom: 500,
                     child: CircleAvatar(
                         radius: 10,
-                        backgroundImage: NetworkImage(
-                            'https://scontent.fcai20-1.fna.fbcdn.net/v/t39.30808-6/299810747_2250494521781570_4915005802029807842_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=KjKYy-ylajQAX_3aake&_nc_oc=AQlN_OZ2JHxvsyFXwYt4y4CZ-_rpbxZZmova_ZjMqEDhnUAgnTQFKAZwV6ka_P7uWek&_nc_ht=scontent.fcai20-1.fna&oh=00_AT-yAZTDCVhyOPQ498O6xoCnVv24if3HuoSwt9ltLxtt-g&oe=63067E3A')),
+                        backgroundImage: AssetImage('assets/images/profile.svg')),
                   ),
                   Positioned(
                     top: 260,
@@ -216,6 +217,58 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  CacheHelper.removeValue(key: 'token').then((value) {
+                                    if (value) {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => const HomeLogin()));
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(15)),
+                                      shape: BoxShape.rectangle),
+                                  child: Row(
+                                    children: [
+                                     const Icon(Icons.login_outlined),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        'Logout',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(fontSize: 18),
+                                      ),
+                                      const Spacer(),
+                                      IconButton(
+                                        padding: EdgeInsets.zero,
+                                        icon: SvgPicture.asset(
+                                            'assets/icons/forward.svg'),
+                                        onPressed: () {
+                                          CacheHelper.removeValue(key: 'token').then((value) {
+                                            if (value) {
+                                              Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) => const HomeLogin()));
+                                            }
+                                          });
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -232,3 +285,5 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+
+

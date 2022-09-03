@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:orange/layout/cubit/states.dart';
 import 'package:orange/models/carts_model.dart';
 import 'package:orange/models/product.dart';
 import 'package:orange/models/tools.dart';
@@ -10,7 +11,6 @@ import 'package:orange/modules/notifications/notifications_screen.dart';
 import 'package:orange/modules/profile/profile_screen.dart';
 import 'package:orange/modules/scan/scan_screen.dart';
 import 'package:orange/shared/components/constants.dart';
-import 'package:orange/shared/cubit/states.dart';
 import 'package:orange/shared/network/local/sql_helper.dart';
 import 'package:orange/shared/network/remote/dio_helper.dart';
 import 'package:orange/shared/network/remote/end_points.dart';
@@ -27,35 +27,30 @@ class AppCubit extends Cubit<AppStates> {
 
   List<Widget> screens = [
     const BlogsScreen(),
+    const ScanScreen(),
      const HomeScreen(),
-    const HomeScreen(),
     const NotificationsScreen(),
     const ProfileScreen(),
   ];
 
   int currentPage = 2;
   void changeNavBar(int index, BuildContext context) {
-    if (index == 4) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const ProfileScreen()));
-    } else if (index == 0) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const BlogsScreen()));
-    }else if(index==1){
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> const ScanScreen()));
-    }
-    else {
+    if(index!=4){
       currentPage = index;
+    }else{
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const ProfileScreen()));
     }
     emit(ChangeNavBarState());
   }
 
-  void getFreeSeed(String address){
+   getFreeSeed(String address){
     emit(GetFreeSeedLoadingsState());
     DioHelper.postData(url: FREE_SEED, data: {
       'address':address,
     },
       token: accessToken,
     ).then((value){
+
       emit(GetFreeSeedSuccessState());
     }).catchError((error){
       emit(GetFreeSeedErrorState());
@@ -63,7 +58,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   ProductModel? productModel;
-  void getProducts() {
+   getProducts() async{
     emit(GetProductsLoadingState());
     DioHelper.getData(path: PRODUCTS, token: accessToken, query: null)
         .then((value) {
@@ -77,7 +72,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   ToolsModel? toolModel;
-  void getTools() {
+   getTools() async{
     emit(GetToolsLoadingState());
     DioHelper.getData(path: TOOLS, token: accessToken, query: null)
         .then((value) {
@@ -93,7 +88,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   SeedsModel? seedsModel;
-  void getSeeds() {
+   getSeeds() async{
     emit(GetSeedsLoadingState());
     DioHelper.getData(path: SEEDS, token: accessToken, query: null)
         .then((value) {
@@ -109,7 +104,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   PlantsModel? plantsModel;
-  void getPlants() {
+   getPlants()async {
     emit(GetPlantsLoadingState());
     DioHelper.getData(path: PLANTS, token: accessToken, query: null)
         .then((value) {
@@ -214,7 +209,7 @@ emit(UpdateCartSuccessState());
 
   BlogsModel? blogModel;
   List allBlogs = [];
-  void getBlogs() {
+   getBlogs()async {
     emit(GetBlogsLoadingState());
     DioHelper.getData(path: BLOGS, token: accessToken, query: null)
         .then((value) {
@@ -234,7 +229,7 @@ emit(UpdateCartSuccessState());
     });
   }
 
- void  changeQuizValidation(){
+ void changeQuizValidation()async{
     emit(ChangeQuizState());
  }
 }
